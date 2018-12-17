@@ -16,7 +16,7 @@ W. Badenhorst, Practical Python Design Patterns
 """
 
 
-class LazyProperty:
+class lazyproperty:
     """
     Class as a property decorator around methods computed only once on access.
 
@@ -43,7 +43,7 @@ if __name__ == '__main__':
             self.a = self.slow_method
             pass
 
-        @LazyProperty
+        @lazyproperty
         def slow_method(self):
             print('Slow method is performing...')
             return 1
