@@ -20,9 +20,9 @@ class LazyProperty:
     """
     Class as a property decorator around methods computed only once on access.
 
-    Consequent instantiating of the underlying class with the decorated methods
-    or the subclasses inheriting from the underlying class return the computed
-    values from the underlying class `__dict__`.
+    Consequent instantiatings of the underlying class with the decorated
+    methods or the subclasses inheriting from the underlying class
+    return the computed values from the underlying class `__dict__`.
     """
     def __init__(self, func):
         self.func = func
