@@ -31,7 +31,7 @@ class LazyProperty:
         if instance is None:
             return self
         else:
-            value = self.func(cls)
+            value = self.func(instance)
             setattr(cls, self.func.__name__, value)
             return value
 
