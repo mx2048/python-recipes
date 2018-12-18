@@ -23,6 +23,11 @@ class lazyproperty:
     Consequent instantiatings of the underlying class with the decorated
     methods or the subclasses inheriting from the underlying class
     return the computed values from the underlying class `__dict__`.
+
+    Change `cls` to `instance` in the method `__get__` such as:
+    setattr(instance, self.func.__name__, value)
+    to constrain lazyproperty within the instance:
+    new instances upon initializing will recalculate the decorated methods.
     """
     def __init__(self, func):
         self.func = func
@@ -40,8 +45,10 @@ if __name__ == '__main__':
 
     class A:
         def __init__(self):
+            # Creating a new attribute is basically redundant.
+            # You can omit defining `__init__` in your code.
+            # This is just an example.
             self.a = self.slow_method
-            pass
 
         @lazyproperty
         def slow_method(self):
