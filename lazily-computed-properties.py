@@ -18,7 +18,7 @@ W. Badenhorst, Practical Python Design Patterns
 
 class lazyproperty:
     """
-    Class as a property decorator around methods computed only once on access.
+    Class as a property decorator for methods to be computed once on access.
 
     Consequent instantiatings of the underlying class with the decorated
     methods or the subclasses inheriting from the underlying class
