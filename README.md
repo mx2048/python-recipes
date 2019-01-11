@@ -1,2 +1,2 @@
 # python-recipes
-A set of useful recipes. Advanced Python. Comments to every recipe is in the corresponding \*.py file.
+A set of useful recipes. Advanced Python. Comments to every recipe are in the corresponding \*.py file.
