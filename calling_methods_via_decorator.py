@@ -21,7 +21,7 @@ def apply_for(attribute: str, included: Collection[str]=None, excluded: Collecti
         def wrapper(*args, **kwargs):
 
             def uniform(value: str) -> str:
-                return value.upper()
+                return str(value).upper()
 
             def normalize_to_set(argument: Collection[str]) -> Set[str]:
                 if isinstance(argument, str):
