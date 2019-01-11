@@ -23,13 +23,13 @@ def apply_for(attribute: str, included: Collection[str]=None, excluded: Collecti
             def uniform(value: str) -> str:
                 return str(value).upper()
 
-            def normalize_to_set(argument: Collection[str]) -> Set[str]:
-                if isinstance(argument, str):
-                    argument = argument.replace(',', ' ').split()
-                argument = {uniform(e) for e in argument}
-                return argument
+            def normalize_to_set(param: Collection[str]) -> Set[str]:
+                if isinstance(param, str):
+                    param = param.replace(',', ' ').split()
+                param = {uniform(e) for e in param}
+                return param
 
-            # Do not rewrite the nonlocal arguments.
+            # Do not rewrite the nonlocal parameters.
             nonlocal attribute, included, excluded
 
             self, *_ = args
