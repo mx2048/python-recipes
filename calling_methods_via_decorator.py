@@ -21,12 +21,11 @@ def apply_for(attribute: str, included: Collection[str]=None, excluded: Collecti
         def wrapper(*args, **kwargs):
 
             def uniform(value: str) -> str:
-                return value.strip().upper()
+                return value.upper()
 
             def normalize_to_set(argument: Collection[str]) -> Set[str]:
                 if isinstance(argument, str):
-                    sep = ',' if ',' in argument else ' '
-                    argument = argument.split(sep)
+                    argument = argument.replace(',', ' ').split()
                 argument = {uniform(e) for e in argument}
                 return argument
 
