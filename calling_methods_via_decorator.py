@@ -8,7 +8,7 @@ def apply_for(attribute: str, included: Collection[str]=None, excluded: Collecti
     only when the attribute's value is in the `included` list
     and not in the `excluded` one.
 
-    If the `included` collection is empty or None the `attribute` is not
+    If the `included` collection is empty or None, and the `attribute` is not
     in the `excluded` collection, always call the decorated method.
 
     Usage:
@@ -16,7 +16,7 @@ def apply_for(attribute: str, included: Collection[str]=None, excluded: Collecti
     def peel(self):
         pass
     """
-    def args_wrapper(func):
+    def param_wrapper(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
 
@@ -48,7 +48,7 @@ def apply_for(attribute: str, included: Collection[str]=None, excluded: Collecti
 
             return func(*args, **kwargs)
         return wrapper
-    return args_wrapper
+    return param_wrapper
 
 
 if __name__ == '__main__':
@@ -58,12 +58,12 @@ if __name__ == '__main__':
             self.language = language
             self.data = 'No kudos yet'
 
-        @apply_for(attribute='language', included=['Python', 'C'], excluded='Java')
+        @apply_for(attribute='language', included='Python, C', excluded='Java')
         def add_kudos(self, value):
             self.data = f'Kudos acquired: {value} '
 
-    for language in ['python', 'c', 'java', 'Perl']:
-        obj = ProgrammingLanguage(language)
+    for lang in ['python', 'c', 'java', 'Perl']:
+        obj = ProgrammingLanguage(lang)
         obj.add_kudos('100')
         print(f'{obj.language.capitalize()} - {obj.data}')
 
@@ -74,5 +74,5 @@ if __name__ == '__main__':
     # Perl - No kudos yet
 
     # Note, method `add_kudos` was called only for included languages.
-    # The `ProgrammingLanguage` has attribyte `self.language` which name was
+    # The `ProgrammingLanguage` has attribute `language` which name was
     # passed in `@apply_for()` decorator.
