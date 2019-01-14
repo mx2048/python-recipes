@@ -2,7 +2,7 @@ from functools import wraps
 from typing import Collection, Set
 
 
-def call_for(attribute: str, included: Collection[str]=None, excluded: Collection[str]=None):
+def call_for(attribute: str, *, included: Collection[str]=None, excluded: Collection[str]=None):
     """
     Decorator: Call a decorated method of a class having `attribute`
     only when the attribute's value is in the `included` list
