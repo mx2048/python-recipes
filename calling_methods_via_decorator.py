@@ -1,3 +1,5 @@
+import inspect
+import traceback
 from functools import wraps
 from typing import Collection, Set
 
@@ -36,6 +38,15 @@ def call_for(attribute: str, *, included: Collection[str]=None, excluded: Collec
             attr_value = getattr(self, attribute)
             attr_value = uniform(attr_value)
 
+            if not included and not excluded:
+                lines, line_number = inspect.getsourcelines(func)
+                name = call_for.__name__
+                error_line = ''.join(e.strip() for e in lines if f'@{name}' in e)
+                raise TypeError(f'Line {line_number}: {error_line}\n'
+                                f'{name}() missing at least'
+                                f' 1 required non-empty keyword-only argument'
+                                f' from the list: {inspect.getfullargspec(call_for).kwonlyargs}.')
+
             if included:
                 included_set = normalize_to_set(included)
                 if attr_value not in included_set:
@@ -61,11 +72,13 @@ if __name__ == '__main__':
         def add_kudos(self, value):
             self.data = f'Kudos acquired: {value}'
 
-        @call_for('language', included='Java')
+        @call_for(attribute='language', included='')
         def deduct_kudos(self):
             self.data = 'Kudos deducted'
 
-    for lang in ['python', 'c', 'java', 'Perl']:
+
+    # ['python', 'c', 'java', 'Perl']
+    for lang in ['python']:
         obj = ProgrammingLanguage(lang)
         obj.add_kudos('100')
         obj.deduct_kudos()
